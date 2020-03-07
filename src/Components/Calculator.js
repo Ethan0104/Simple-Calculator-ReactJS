@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import Button from "./Button"
 import Output from "./Output"
 
-const calcContainerStyle = {
+const calcContainerStyleWide = {
 	width: "40vw",
 	height: "85vh",
 	position: "absolute",
@@ -12,7 +12,7 @@ const calcContainerStyle = {
 	background: "#ced6e0",
 	borderRadius: "5vh"
 }
-const calcStyle = {
+const calcStyleWide = {
 	width: "30vw",
 	height: "60vh",
 	position: "absolute",
@@ -20,14 +20,7 @@ const calcStyle = {
 	left: "50%",
 	transform: "translate(-50%, -50%)"
 }
-const captionStyle = {
-	whiteSpace: "nowrap",
-	overflow: "hidden",
-	position: "absolute",
-	right: "0px",
-	transform: "translate(-5px, -75%)"
-}
-const captionContainerStyle = {
+const captionContainerStyleWide = {
 	width: "31vw",
 	height: "35px",
 	backgroundColor: "white",
@@ -36,15 +29,67 @@ const captionContainerStyle = {
 	borderRadius: "5px"
 }
 
+const calcContainerStyleMobile = {
+	width: "80vw",
+	height: "80vh",
+	position: "absolute",
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)",
+	background: "#ced6e0",
+	borderRadius: "5vw"
+}
+const calcStyleMobile = {
+	width: "60vw",
+	height: "60vh",
+	position: "absolute",
+	top: "50%",
+	left: "50%",
+	transform: "translate(-50%, -50%)"
+}
+const captionContainerStyleMobile = {
+	width: "63vw",
+	height: "35px",
+	backgroundColor: "white",
+	margin: "12.5vh auto",
+	transform: "translate(0%, -200%)",
+	borderRadius: "5px"
+}
+
+const captionStyle = {
+	whiteSpace: "nowrap",
+	overflow: "hidden",
+	position: "absolute",
+	right: "0px",
+	transform: "translate(-5px, -75%)"
+}
+
 class Calculator extends Component {
 	constructor(props) {
 		super(props)
 
-		this.state = {
-			value1: "0", // First value in the operation
-			value2: "", // Second value in the operation
-			operation: null, //null is not doing anything
-			didFinish: false //true after equal sign is pressed
+		if (window.innerWidth >= window.innerHeight) {
+			console.log(12)
+			this.state = {
+				value1: "0", // First value in the operation
+				value2: "", // Second value in the operation
+				operation: null, //null is not doing anything
+				didFinish: false, //true after equal sign is pressed
+				calcContainerStyle: calcContainerStyleWide,
+				calcStyle: calcStyleWide,
+				captionContainerStyle: captionContainerStyleWide
+			}
+		} else {
+			console.log(10)
+			this.state = {
+				value1: "0", // First value in the operation
+				value2: "", // Second value in the operation
+				operation: null, //null is not doing anything
+				didFinish: false, //true after equal sign is pressed
+				calcContainerStyle: calcContainerStyleMobile,
+				calcStyle: calcStyleMobile,
+				captionContainerStyle: captionContainerStyleMobile
+			}
 		}
 	}
 	componentDidMount() {
@@ -157,6 +202,8 @@ class Calculator extends Component {
 					didFinish: true
 				})
 				break
+			default:
+				break
 		}
 		this.setState({
 			operation: null
@@ -164,7 +211,7 @@ class Calculator extends Component {
 	}
 	keyHandler = event => {
 		// console.log(event.key)
-		event.preventDefault()
+		//event.preventDefault()
 		switch (event.key) {
 			case "0":
 			case "1":
@@ -201,6 +248,11 @@ class Calculator extends Component {
 			case "c":
 				this.acHandler()
 				break
+			case "s":
+				this.signSwitchHandler()
+				break
+			default:
+				break
 		}
 	}
 
@@ -209,10 +261,11 @@ class Calculator extends Component {
 		if (this.state.operation != null && this.state.value2 !== "") {
 			currentVal = this.state.value2
 		}
+
 		return (
-			<div style={calcContainerStyle}>
-				<div style={captionContainerStyle}></div>
-				<table style={calcStyle}>
+			<div style={this.state.calcContainerStyle}>
+				<div style={this.state.captionContainerStyle}></div>
+				<table style={this.state.calcStyle}>
 					<caption style={captionStyle}>
 						<Output val={currentVal}></Output>
 					</caption>

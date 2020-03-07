@@ -1,20 +1,30 @@
 import React, { Component } from "react"
 
-const buttonStyle = {
+const buttonStyleWide = {
 	width: "7.5vw",
 	height: "12vh",
-	fontSize: "300%",
+	fontSize: "2.5vw",
 	border: "none",
 	outlineWidth: "0px",
-	//backgroundImage: "linear-gradient(120deg, #95a5a6, #7f8c8d, #95a5a6)",
-	// backgroundImage: "linear-gradient(120deg, #70a1ff, #1e90ff, #70a1ff)",
-	// backgroundImage: "linear-gradient(120deg, #747d8c, #57606f, #747d8c)",
 	backgroundImage: "linear-gradient(120deg, #95a5a6, #7f8c8d, #95a5a6)",
 	backgroundSize: "200%",
 	color: "white",
 	borderRadius: "5px",
 	transition: "0.5s"
 }
+const buttonStyleMobile = {
+	width: "15vw",
+	height: "12vh",
+	fontSize: "3vh",
+	border: "none",
+	outlineWidth: "0px",
+	backgroundImage: "linear-gradient(120deg, #95a5a6, #7f8c8d, #95a5a6)",
+	backgroundSize: "200%",
+	color: "white",
+	borderRadius: "5px",
+	transition: "0.5s"
+}
+
 const hoveredButtonStyle = {
 	backgroundPosition: "right"
 }
@@ -37,10 +47,21 @@ class Button extends Component {
 		) {
 			functional = true
 		}
-		this.state = {
-			functional: functional,
-			hover: false
+
+		if (window.innerWidth >= window.innerHeight) {
+			this.state = {
+				functional: functional,
+				hover: false,
+				buttonStyle: buttonStyleWide
+			}
+		} else {
+			this.state = {
+				functional: functional,
+				hover: false,
+				buttonStyle: buttonStyleMobile
+			}
 		}
+
 		this.hoverHandler = this.hoverHandler.bind(this)
 		this.blurHandler = this.blurHandler.bind(this)
 	}
@@ -57,7 +78,7 @@ class Button extends Component {
 	}
 
 	render() {
-		let currentStyle = buttonStyle
+		let currentStyle = this.state.buttonStyle
 		if (this.state.hover) {
 			currentStyle = { ...currentStyle, ...hoveredButtonStyle }
 		}
