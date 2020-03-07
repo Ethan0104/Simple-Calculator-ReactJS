@@ -15,7 +15,7 @@ const buttonStyleWide = {
 const buttonStyleMobile = {
 	width: "15vw",
 	height: "12vh",
-	fontSize: "3vw",
+	fontSize: "14px",
 	border: "none",
 	outlineWidth: "0px",
 	backgroundImage: "linear-gradient(120deg, #95a5a6, #7f8c8d, #95a5a6)",
