@@ -36,7 +36,7 @@ const calcContainerStyleMobile = {
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	background: "#ced6e0",
+
 	borderRadius: "5vw"
 }
 const calcStyleMobile = {
